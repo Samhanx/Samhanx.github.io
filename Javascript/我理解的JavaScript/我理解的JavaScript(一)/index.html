@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/Javascript/我理解的JavaScript/我理解的JavaScript(一)/index.html">
 <meta property="og:site_name" content="Hanx Blog">
 <meta property="og:description" content="如果不算中学时只是玩过一小会的VB，不算超文本标记语言HTML和层叠样式表CSS，JavaScript应该是我正式学习，运用，并且小有所得的第一门编程语言（这里没有任何看低HTML和CSS的意思，实际上对作为前端的我而言，这两者也非常重要）。一直以来我都想写一些我在学习JS时的理解，笔记和总结，但是从开始工作以后，JS的学习就变得不那么系统了，各种零碎的知识点穿插在日常工作和学习的积累当中，如果一">
-<meta property="og:updated_time" content="2017-04-26T15:56:42.687Z">
+<meta property="og:updated_time" content="2017-04-26T17:00:49.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我理解的JavaScript(一)">
 <meta name="twitter:description" content="如果不算中学时只是玩过一小会的VB，不算超文本标记语言HTML和层叠样式表CSS，JavaScript应该是我正式学习，运用，并且小有所得的第一门编程语言（这里没有任何看低HTML和CSS的意思，实际上对作为前端的我而言，这两者也非常重要）。一直以来我都想写一些我在学习JS时的理解，笔记和总结，但是从开始工作以后，JS的学习就变得不那么系统了，各种零碎的知识点穿插在日常工作和学习的积累当中，如果一">
@@ -371,10 +371,27 @@
 <p>编译器是将源代码编译为另外一种代码（比如机器码，或者字节码），而解释器是直接解析并将代码运行结果输出。</p>
 </blockquote>
 <p>然而即便是作为解释执行的语言，JS引擎也会对JS代码进行一个编译的过程，而且这个过程与代码的执行紧密地结合在一起，以至于我们几乎无法感知到编译的时间，因为通常一段可执行的JS代码片段在编译之后程序立刻就会执行它（将它推入执行栈空间）。</p>
-<p>个人认为，要深入理解JS，则必须要理解JS的源码从编译到执行所经历的这样一个过程。这其中必然要谈到另一个我们常常见到的名词——ECMAScript。</p>
-<p>我们所学习的JavaScript，几乎可以说是以浏览器作为宿主来谈论的（暂不谈Node.js）。其中包括了JS语言本身的标准，即ECMAScript、文档对象模型（Document Object Model）DOM、浏览器对象模型（Browser Object Model）BOM，这三个部分的内容。一个标准的JS解释引擎，就是参照语言标准ECMAScript，用代码对它进行编写实现，这个标准定义了语言的词法，语法，规范等这些规则性质的内容。比方说变量的声明和赋值如何解析<code>var a = 1;</code>，定义数据类型、操作和运算，以及控制结构<code>if(){}else{}</code>等等内容。</p>
-<p>放在浏览器的JS引擎来说，除了要加入DOM和BOM相关的内容之外，各个厂商也会结合自家产品在具体的API上或新增或修改，并且对ECMAScript这个统一标准的实现程度也各有不同，所以也就导致了JS在不同浏览器下运行会有兼容性的问题。</p>
-<p>幸运的是，随着官方和社区的推动，以及浏览器市场的变化，现在各家浏览器厂商对于ECMAScript标准的实现正在趋于一致，JS的兼容性问题如今几乎已经成为历史，更多的前沿技术甚至宣称不再支持IE9及其以下的老旧浏览器，这是非常令人可喜的事情。</p>
+<p>个人认为，要深入理解JS，则必须要理解JS的源码从编译到执行所经历的这样一个过程，所以我们需要先树立起JS引擎这样一个概念。而这其中必然还要谈到另一个我们常常见到的名词——ECMAScript(下简称ES)。</p>
+<p>ECMA是欧洲计算机制造商协会(European Computer Manufacturers Association)的首字母简称，ES是它制定的一套语言标准。</p>
+<p>我们所学习的JavaScript，几乎可以说是以浏览器作为宿主来谈论的（暂不谈Node.js）。其中包括了JS语言本身的标准，即ES、文档对象模型（Document Object Model）DOM、浏览器对象模型（Browser Object Model）BOM，这三个部分的内容。一个标准的JS解释引擎，就是参照语言标准ES，用代码对它进行编写实现，这个标准定义了语言的词法，语法，规范等这些规则性质的内容。比方说变量的声明和赋值如何解析<code>var a = 1;</code>，定义数据类型、操作和运算，以及控制结构<code>if else</code>等等内容。具体包括了语法，类型，语句，关键字，保留字，操作符，对象，原生API这几个方面。</p>
+<p>放在浏览器的JS引擎来说，除了要加入DOM和BOM相关的内容之外，各个厂商也会结合自家产品在具体的API上或新增或修改，并且对ES这个统一标准的实现程度也各有不同，所以也就导致了JS在不同浏览器下运行会有兼容性的问题。</p>
+<p>幸运的是，随着制定标准的委员会官方和各个web技术社区的推动，以及浏览器市场的变化，现在各家浏览器厂商对于ES标准的实现正在趋于一致，JS的兼容性问题如今几乎已经成为历史，更多的前沿技术甚至宣称不再支持IE9及其以下的老旧浏览器，而Babel的出现也能够让我们在项目中运用最新的ES标准来编写代码，这是非常令人可喜的事情。</p>
+<h3 id="ECMAScript简要历史"><a href="#ECMAScript简要历史" class="headerlink" title="ECMAScript简要历史"></a>ECMAScript简要历史</h3><p>详细的历史可以通过Google查阅相关资料，这里仅就我认为的一些关键点进行总结。</p>
+<ul>
+<li><p>JavaScript之父Brendan Eich于1995年创造了这门语言。</p>
+</li>
+<li><p>1997年ECMA委员会以JS1.1版本作为蓝本制定了第一版ECMAScript，并于当年7月发布，名为ECMA-262(第262号文件)。TC-39是负责制定标准的技术委员会。</p>
+</li>
+<li><p>1999年发布的ECMA-262第三版也是极其重要的一个版本，实际上在我们看来理所当然的如正则表达式，try-catch语句，Error类型等内容都是这一版加入进去的。而IE6-IE8浏览器的JS引擎也是实现的这一版本，所以要兼容这些浏览器，不得不放弃很多有用的原生API。</p>
+</li>
+<li><p>2009年，事隔十年之后，ECMA-262标准第五版发布。IE9及以后的浏览器，以及大部分现代浏览器都以这一版标准实现JS引擎。第五版标准大量拓展了String，Array，Object，Date等对象上的方法。</p>
+</li>
+<li><p>在第五版之前曾有一个第四版的草案，因为太过激进，各方博弈之下最终没有发布，但实际上其中很多内容在随后的ES5和后来的ES6中进行了实现。</p>
+</li>
+<li><p>2015年6月，几经讨论的ES6标准最终发布，并且ECMA委员会决定之后以年份为标记，每年6-7月发布当年的版本。</p>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.nowamagic.net/librarys/veda/detail/1579" target="_blank" rel="external">我们应该如何去了解JavaScript引擎的工作原理</a><br><a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="external">ES6标准入门</a><br>《实战ES2015》2016年10月第一版 作者：小问</p>
 
       
     </div>
@@ -533,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS引擎和ECMAScript"><span class="nav-number">1.</span> <span class="nav-text">JS引擎和ECMAScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单说说JS引擎"><span class="nav-number">1.1.</span> <span class="nav-text">简单说说JS引擎</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS引擎和ECMAScript"><span class="nav-number">1.</span> <span class="nav-text">JS引擎和ECMAScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单说说JS引擎"><span class="nav-number">1.1.</span> <span class="nav-text">简单说说JS引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECMAScript简要历史"><span class="nav-number">1.2.</span> <span class="nav-text">ECMAScript简要历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
