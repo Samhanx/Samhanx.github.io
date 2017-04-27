@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Hanx Blog">
 <meta property="og:description" content="ES6的东西一直掌握得零零散散的，没有系统整理一遍，现在开始学习框架以后问题就比较严重了。正好最近浮生有在写ES6的学习笔记，我大致会按他的线路结合阮一峰老师的《ES6标准入门》学习整理一遍，也会列出我参考的其他相关文章和材料。
 浮生的ES6学习笔记很棒，尤其适合新手朋友们入手学习ES6特性。">
-<meta property="og:updated_time" content="2017-04-24T17:44:17.805Z">
+<meta property="og:updated_time" content="2017-04-27T14:12:55.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6学习笔记 - 变量声明和块级作用域">
 <meta name="twitter:description" content="ES6的东西一直掌握得零零散散的，没有系统整理一遍，现在开始学习框架以后问题就比较严重了。正好最近浮生有在写ES6的学习笔记，我大致会按他的线路结合阮一峰老师的《ES6标准入门》学习整理一遍，也会列出我参考的其他相关文章和材料。
@@ -422,10 +422,10 @@
 </blockquote>
 <p>对于数组和对象，常量确保了栈内存引用地址的不可变，但是堆内存中实际存储的值是可以改变的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const FOO = &#123;&#125;</div><div class="line">FOO.name = &apos;foo&apos;</div><div class="line">FOO // Object &#123;name: &quot;foo&quot;&#125;</div><div class="line">const BAR = [1, 2]</div><div class="line">BAR.push(3)</div><div class="line">BAR // [1, 2, 3]</div></pre></td></tr></table></figure>
-<h3 id="暂时性死区的理解"><a href="#暂时性死区的理解" class="headerlink" title="暂时性死区的理解"></a>暂时性死区的理解</h3><p>一旦有let或者const声明，那么其所在作用域内的变量声明就被覆盖，而在声明语句之前使用变量的话会报错</p>
+<h3 id="暂时性死区的理解"><a href="#暂时性死区的理解" class="headerlink" title="暂时性死区的理解"></a>暂时性死区的理解</h3><p>一旦有let或者const声明，那么其所在作用域内的变量声明就被覆盖，而在声明语句之前使用变量的话会报错。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">if (a) &#123;</div><div class="line">    console.log(a) // Uncaught ReferenceError: a is not defined</div><div class="line">    let a = 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var b = 1;</div><div class="line">var c = 3;</div><div class="line">if (b) &#123;</div><div class="line">    console.log(c); // 3</div><div class="line">    b = 2; // Uncaught ReferenceError: b is not defined</div><div class="line">    let b;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var foo = 1;</div><div class="line">if (foo) &#123;</div><div class="line">    let foo;</div><div class="line">    if (true) &#123;</div><div class="line">        console.log(foo); // Uncaught ReferenceError: foo is not defined</div><div class="line">        let foo;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>可以看到报错是变量未定义，但是从作用域链的角度来说，我们已经在外部声明了变量，而c也可以查找得到。</p>
-<p>个人理解可能底层的实现是在解释器发现let之后，形成块级作用域，并重置了let所声明变量的访问权限。对比var，是在本级作用域进行了变量的声明覆盖，即所谓的变量声明提升；而let其实也是有一个潜在的“提升”，是告诉本级作用域有这些变量，不用在作用域链上去查找，但在本级作用域内的声明语句之前，这些变量还是未声明的状态，不可访问。至于具体的定义和实现则要参考ES6的标准了。</p>
+<p>个人理解可能底层的实现是在解释器发现let之后，形成块级作用域，并重置了let所声明变量的访问权限。假如换成函数作用域，声明换成var，我们知道在赋值语句执行之前访问变量都将是undefined，即所谓的变量声明提升；而let其实也是有一个潜在的“提升”，是告诉本级作用域有这些变量，不用在作用域链上去查找，但在本级作用域内的声明语句之前，这些变量还是未声明的状态，不可访问。显然，从词法作用域的角度来看，仍然是在书写代码的时候就确定了所声明变量的访问规则。至于具体的定义和实现则要参考ES6的标准了。</p>
 <p>const同理，但实际几乎不太可能会这样来写代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">if (a) &#123;</div><div class="line">    console.log(a) // Uncaught ReferenceError: a is not defined</div><div class="line">    const a = 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var b = 1;</div><div class="line">var c = 3;</div><div class="line">if (b) &#123;</div><div class="line">    console.log(c); // 3</div><div class="line">    b = 2; // Uncaught ReferenceError: b is not defined</div><div class="line">    const b = 4;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var foo = 1;</div><div class="line">if (foo) &#123;</div><div class="line">    const foo = 2;</div><div class="line">    if (true) &#123;</div><div class="line">        console.log(foo); // Uncaught ReferenceError: foo is not defined</div><div class="line">        const foo = 3;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="全局作用域内的声明不再赋值到顶层对象上"><a href="#全局作用域内的声明不再赋值到顶层对象上" class="headerlink" title="全局作用域内的声明不再赋值到顶层对象上"></a>全局作用域内的声明不再赋值到顶层对象上</h3><p>以浏览器为例</p>
@@ -549,7 +549,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
