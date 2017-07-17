@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/ES2015/ES6学习笔记 - 字符串/index.html">
 <meta property="og:site_name" content="Hanx Blog">
 <meta property="og:description" content="ES6关于字符串的新增内容最主要也最常用的就是模板字符串了。">
-<meta property="og:updated_time" content="2017-07-17T15:16:08.456Z">
+<meta property="og:updated_time" content="2017-07-17T15:18:23.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6学习笔记 - 字符串">
 <meta name="twitter:description" content="ES6关于字符串的新增内容最主要也最常用的就是模板字符串了。">
@@ -380,17 +380,8 @@
 <h3 id="String-prototype-repeat"><a href="#String-prototype-repeat" class="headerlink" title="String.prototype.repeat"></a>String.prototype.repeat</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">let str = &apos;abc&apos;;</div><div class="line">str.repeat(0) // &apos;&apos;</div><div class="line">str.repeat(2) // &apos;abcabc&apos;</div><div class="line">str.repeat(2.5) // &apos;abcabc&apos; // 小数取整</div><div class="line">str.repeat(Infinity) // Uncaught RangeError: Invalid count value</div><div class="line">str.repeat(NaN) // &apos;&apos;</div><div class="line">str.repeat(-1) // Uncaught RangeError: Invalid count value</div><div class="line">str.repeat(-0.9) // &apos;&apos;</div><div class="line">str.repeat(&apos;a1&apos;) // &apos;&apos; 相当于Number(&apos;a1&apos;) =&gt; NaN</div><div class="line">str.repeat(&apos;1&apos;) // abc</div></pre></td></tr></table></figure>
 <h3 id="string-includes-searchString-position"><a href="#string-includes-searchString-position" class="headerlink" title="string.includes(searchString[, position])"></a>string.includes(searchString[, position])</h3><p>比indexOf更简单好用，但是Chrome和FF都要求比较高的版本，Opera，IE都不支持，移动端也几乎不支持</p>
 <p>let str = ‘Hello World’;<br>str.includes(‘Hello’)   // true<br>str.includes(‘hello’)   // false 区分大小写<br>str.includes(‘H’, 1)    // false 第二个参数指定检测的起点，默认为0<br>str.includes(‘H’, -9)   // true  负数还是从0开始</p>
-<ul>
-<li>polyfill</li>
-</ul>
-<p>if (!String.prototype.includes) {<br>    String.prototype.includes = function(search, start) {<br>        ‘use strict’;<br>        if (typeof start !== ‘number’) {<br>            start = 0;<br>        }</p>
-<pre><code>    if (start + search.length &gt; this.length) {
-        return false;
-    } else {
-        return this.indexOf(search, start) !== -1;
-    }
-};
-</code></pre><p>}</p>
+<p>polyfill</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">if (!String.prototype.includes) &#123;</div><div class="line">    String.prototype.includes = function(search, start) &#123;</div><div class="line">        &apos;use strict&apos;;</div><div class="line">        if (typeof start !== &apos;number&apos;) &#123;</div><div class="line">            start = 0;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (start + search.length &gt; this.length) &#123;</div><div class="line">            return false;</div><div class="line">        &#125; else &#123;</div><div class="line">            return this.indexOf(search, start) !== -1;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="加强Unicode编码的表示"><a href="#加强Unicode编码的表示" class="headerlink" title="加强Unicode编码的表示"></a>加强Unicode编码的表示</h3><p>这点留个印象，实际用到的时候查阅即可。</p>
 <h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><p><a href="https://github.com/porcelainHeart/ES6-study-notes/blob/master/basics/string.md" target="_blank" rel="external">浮生的ES6学习笔记 - 字符串的扩展</a></p>
 <p><a href="http://es6.ruanyifeng.com/#docs/string" target="_blank" rel="external">阮一峰ES6标准入门</a></p>
